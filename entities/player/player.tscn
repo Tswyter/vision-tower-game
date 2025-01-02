@@ -1,0 +1,126 @@
+[gd_scene load_steps=18 format=3 uid="uid://d01i1kx3q26nt"]
+
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_pq503"]
+[ext_resource type="Texture2D" uid="uid://ufgxqecqsnmx" path="res://assets/tower/tower_sprite_sheet.png" id="2_a5j68"]
+[ext_resource type="Texture2D" uid="uid://dfsrtgrnj2bai" path="res://assets/tower/tower.png" id="2_ntqow"]
+[ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_38278"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ugxjs"]
+radius = 38.0526
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8epib"]
+radius = 274.029
+
+[sub_resource type="Gradient" id="Gradient_8k6fp"]
+offsets = PackedFloat32Array(0.662338, 0.688312)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o8er8"]
+gradient = SubResource("Gradient_8k6fp")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sjj0"]
+atlas = ExtResource("2_a5j68")
+region = Rect2(6, 7, 30, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1300y"]
+atlas = ExtResource("2_a5j68")
+region = Rect2(42, 7, 30, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otgva"]
+atlas = ExtResource("2_a5j68")
+region = Rect2(78, 7, 30, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsgwq"]
+atlas = ExtResource("2_a5j68")
+region = Rect2(114, 7, 30, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yn8jd"]
+atlas = ExtResource("2_a5j68")
+region = Rect2(150, 7, 30, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wints"]
+atlas = ExtResource("2_a5j68")
+region = Rect2(186, 7, 30, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kldt6"]
+atlas = ExtResource("2_a5j68")
+region = Rect2(222, 7, 30, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wxs6"]
+atlas = ExtResource("2_a5j68")
+region = Rect2(258, 7, 30, 46)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qwqch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sjj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1300y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otgva")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsgwq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yn8jd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wints")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kldt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wxs6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 10
+script = ExtResource("1_pq503")
+
+[node name="LineContainer" type="Node2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="LineContainer"]
+points = PackedVector2Array(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ugxjs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("2_ntqow")
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_8epib")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(9.0625, 9.0625)
+range_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_o8er8")
+
+[node name="Health" parent="." instance=ExtResource("3_38278")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, -5)
+scale = Vector2(2.33333, 2.33333)
+sprite_frames = SubResource("SpriteFrames_qwqch")
+autoplay = "default"
+frame_progress = 0.124912
+
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="entity_died" from="Health" to="." method="_on_died"]
+[connection signal="entity_took_damage" from="Health" to="." method="_on_health_entity_took_damage"]

@@ -1,0 +1,88 @@
+[gd_scene load_steps=14 format=3 uid="uid://86nd7ggkmx6y"]
+
+[ext_resource type="Texture2D" uid="uid://b55x4qbpq0a0j" path="res://assets/enemy.png" id="1_crgd8"]
+[ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_rcuwa"]
+[ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_kxxl4"]
+[ext_resource type="Texture2D" uid="uid://ceeto3hwvy0cx" path="res://assets/enemy/slime_green.png" id="4_ow5kb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bl2eq"]
+radius = 17.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rn46j"]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kpokq"]
+light_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s33sv"]
+atlas = ExtResource("4_ow5kb")
+region = Rect2(0, 0, 23, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik7ph"]
+atlas = ExtResource("4_ow5kb")
+region = Rect2(23, 0, 23, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6iol"]
+atlas = ExtResource("4_ow5kb")
+region = Rect2(46, 0, 23, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d63s7"]
+atlas = ExtResource("4_ow5kb")
+region = Rect2(69, 0, 23, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_021gc"]
+atlas = ExtResource("4_ow5kb")
+region = Rect2(92, 0, 23, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bq0x5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s33sv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik7ph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6iol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d63s7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_021gc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_rcuwa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bl2eq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+light_mask = 2
+visibility_layer = 2
+material = SubResource("CanvasItemMaterial_rn46j")
+scale = Vector2(0.0344828, 0.0344827)
+texture = ExtResource("1_crgd8")
+
+[node name="Health" parent="." instance=ExtResource("3_kxxl4")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["enemies"]]
+light_mask = 2
+visibility_layer = 2
+material = SubResource("CanvasItemMaterial_kpokq")
+scale = Vector2(3.30435, 3.30435)
+sprite_frames = SubResource("SpriteFrames_bq0x5")
+autoplay = "default"
+frame_progress = 0.219194
+
+[connection signal="entity_died" from="Health" to="." method="_on_enemy_died"]
+[connection signal="entity_took_damage" from="Health" to="." method="_on_health_entity_took_damage"]

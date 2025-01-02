@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c75qa1n3dm1lo"]
+
+[ext_resource type="Texture2D" uid="uid://b2cuqmw0qqaud" path="res://assets/pixel-bg.webp" id="1_fnybn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_psilt"]
+texture = ExtResource("1_fnybn")
+expand_margin_left = 300.0
+expand_margin_top = 300.0
+expand_margin_right = 300.0
+expand_margin_bottom = 300.0
+modulate_color = Color(0.147615, 0.176174, 0.132875, 1)
+
+[node name="Map" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(384, 640)
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -555.0
+offset_top = -928.0
+offset_right = 1321.0
+offset_bottom = 2209.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_psilt")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.172833, 0.172833, 0.172833, 1)

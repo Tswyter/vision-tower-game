@@ -1,0 +1,124 @@
+[gd_scene load_steps=19 format=3 uid="uid://c4r83pue70jnb"]
+
+[ext_resource type="Script" path="res://entities/player/pylon.gd" id="1_hq1mt"]
+[ext_resource type="Texture2D" uid="uid://dl6jli0avdpwa" path="res://assets/pylon/pylon.png" id="2_ma30a"]
+[ext_resource type="Texture2D" uid="uid://dllxpepj2ksg1" path="res://assets/pylon/pylon_sprite_sheet.png" id="3_4lpvj"]
+[ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="4_ebqf6"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7h3y5"]
+light_mode = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tlc6s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2miux"]
+radius = 162.049
+
+[sub_resource type="Gradient" id="Gradient_r7fxa"]
+offsets = PackedFloat32Array(0.662338, 0.688312)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fyabn"]
+gradient = SubResource("Gradient_r7fxa")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6q15"]
+atlas = ExtResource("3_4lpvj")
+region = Rect2(2, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6pqe"]
+atlas = ExtResource("3_4lpvj")
+region = Rect2(15, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74ivq"]
+atlas = ExtResource("3_4lpvj")
+region = Rect2(28, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3ufu"]
+atlas = ExtResource("3_4lpvj")
+region = Rect2(41, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtdwj"]
+atlas = ExtResource("3_4lpvj")
+region = Rect2(54, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uel63"]
+atlas = ExtResource("3_4lpvj")
+region = Rect2(67, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhtfg"]
+atlas = ExtResource("3_4lpvj")
+region = Rect2(80, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qius"]
+atlas = ExtResource("3_4lpvj")
+region = Rect2(93, 0, 12, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dhexx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6q15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6pqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74ivq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3ufu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtdwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uel63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhtfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qius")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="Pylon" type="Area2D" groups=["pylons"]]
+light_mask = 2
+visibility_layer = 2
+material = SubResource("CanvasItemMaterial_7h3y5")
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_hq1mt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tlc6s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(1.36, 1.36)
+texture = ExtResource("2_ma30a")
+
+[node name="Area2D" type="Area2D" parent="." groups=["pylons"]]
+collision_layer = 8
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_2miux")
+
+[node name="PointLight2D" type="PointLight2D" parent="." groups=["pylons"]]
+scale = Vector2(5.40625, 5.40625)
+blend_mode = 2
+range_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_fyabn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2.16667, 2.16667)
+sprite_frames = SubResource("SpriteFrames_dhexx")
+autoplay = "default"
+frame_progress = 0.67329
+
+[node name="Health" parent="." instance=ExtResource("4_ebqf6")]

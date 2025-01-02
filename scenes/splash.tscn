@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7o5tlcfy4okg"]
+
+[ext_resource type="Script" path="res://scenes/splash.gd" id="1_guoag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntu7m"]
+bg_color = Color(0.12705, 0.179593, 0.193678, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_pqljt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2s3ew"]
+font = SubResource("SystemFont_pqljt")
+font_size = 86
+
+[node name="Splash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_guoag")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ntu7m")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Vision Tower"
+label_settings = SubResource("LabelSettings_2s3ew")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = 68.0
+offset_right = 116.0
+offset_bottom = 143.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start Game"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
