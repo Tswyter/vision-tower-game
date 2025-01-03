@@ -72,12 +72,13 @@ frame_progress = 0.57447
 
 [node name="ChainRadius" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChainRadius"]
 shape = SubResource("CircleShape2D_ro4vl")
 
-[node name="Panel" type="Panel" parent="ChainRadius"]
+[node name="chain radius visualization" type="Panel" parent="ChainRadius"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -94,6 +95,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_542q1")
 [node name="Line2D" type="Line2D" parent="."]
 default_color = Color(0.219608, 1, 1, 1)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="LightningTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_projectile_hit_area"]
+[connection signal="body_entered" from="." to="." method="_on_projectile_hit_body"]
+[connection signal="area_entered" from="ChainRadius" to="." method="_on_chain_radius_area_entered"]
 [connection signal="body_entered" from="ChainRadius" to="." method="_on_chain_radius_body_entered"]
 [connection signal="body_exited" from="ChainRadius" to="." method="_on_chain_radius_body_exited"]
+[connection signal="timeout" from="LightningTimer" to="." method="_on_lightning_timer_timeout"]

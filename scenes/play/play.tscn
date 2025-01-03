@@ -26,15 +26,11 @@ position = Vector2(1155, 467)
 enemy_scene = ExtResource("6_7nslj")
 
 [node name="Enemy Spawn3" parent="." instance=ExtResource("4_we8rp")]
-position = Vector2(272, 1342)
-enemy_scene = ExtResource("6_7nslj")
-
-[node name="Enemy Spawn4" parent="." instance=ExtResource("4_we8rp")]
-position = Vector2(651, 1029)
+position = Vector2(555, 1015)
 enemy_scene = ExtResource("6_7nslj")
 
 [node name="Enemy Spawn5" parent="." instance=ExtResource("4_we8rp")]
-position = Vector2(-68, 863)
+position = Vector2(-657, 796)
 enemy_scene = ExtResource("6_7nslj")
 
 [node name="Play UI" parent="." instance=ExtResource("1_jhewb")]

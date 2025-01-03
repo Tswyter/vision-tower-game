@@ -1,8 +1,8 @@
 extends Area2D
 
 @export var enemy_scene: PackedScene
-@export_range(5.0, 15.0, 0.1) var spawn_interval_min: float = 5.0
-@export_range(10.0, 30.0, 0.1) var spawn_interval_max: float = 10.0
+@export_range(15.0, 25.0, 0.1) var spawn_interval_min: float = 15.0
+@export_range(20.0, 30.0, 0.1) var spawn_interval_max: float = 20.0
 
 var active_timer: Timer = null
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://d01i1kx3q26nt"]
+[gd_scene load_steps=20 format=3 uid="uid://d01i1kx3q26nt"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_pq503"]
 [ext_resource type="Texture2D" uid="uid://ufgxqecqsnmx" path="res://assets/tower/tower_sprite_sheet.png" id="2_a5j68"]
 [ext_resource type="Texture2D" uid="uid://dfsrtgrnj2bai" path="res://assets/tower/tower.png" id="2_ntqow"]
 [ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_38278"]
+[ext_resource type="PackedScene" uid="uid://1y34glb3vi8q" path="res://ui/health_bar.tscn" id="4_2coam"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ugxjs"]
 radius = 38.0526
@@ -84,6 +85,9 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbr8x"]
+bg_color = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 10
 script = ExtResource("1_pq503")
@@ -105,6 +109,7 @@ texture = ExtResource("2_ntqow")
 collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+visible = false
 shape = SubResource("CircleShape2D_8epib")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
@@ -121,6 +126,20 @@ sprite_frames = SubResource("SpriteFrames_qwqch")
 autoplay = "default"
 frame_progress = 0.124912
 
+[node name="HealthBar" parent="." instance=ExtResource("4_2coam")]
+offset_left = -60.0
+offset_top = 53.0
+offset_right = 63.0
+offset_bottom = 58.0
+
+[node name="HealthBarContainer" type="Panel" parent="."]
+offset_left = -63.0
+offset_top = 49.0
+offset_right = 65.0
+offset_bottom = 61.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jbr8x")
+
+[connection signal="area_entered" from="AttackRange" to="." method="_on_attack_range_area_entered"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="entity_died" from="Health" to="." method="_on_died"]
 [connection signal="entity_took_damage" from="Health" to="." method="_on_health_entity_took_damage"]

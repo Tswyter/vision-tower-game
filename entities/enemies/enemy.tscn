@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://86nd7ggkmx6y"]
+[gd_scene load_steps=16 format=3 uid="uid://86nd7ggkmx6y"]
 
 [ext_resource type="Texture2D" uid="uid://b55x4qbpq0a0j" path="res://assets/enemy.png" id="1_crgd8"]
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_rcuwa"]
 [ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_kxxl4"]
 [ext_resource type="Texture2D" uid="uid://ceeto3hwvy0cx" path="res://assets/enemy/slime_green.png" id="4_ow5kb"]
+[ext_resource type="PackedScene" uid="uid://1y34glb3vi8q" path="res://ui/health_bar.tscn" id="5_k2rcn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bl2eq"]
 radius = 17.0
@@ -57,6 +58,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_drhup"]
+light_mode = 2
+
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 2
 collision_mask = 7
@@ -83,6 +87,14 @@ scale = Vector2(3.30435, 3.30435)
 sprite_frames = SubResource("SpriteFrames_bq0x5")
 autoplay = "default"
 frame_progress = 0.219194
+
+[node name="HealthBar" parent="." instance=ExtResource("5_k2rcn")]
+visible = false
+material = SubResource("CanvasItemMaterial_drhup")
+offset_left = -12.0
+offset_top = 24.0
+offset_right = 13.0
+offset_bottom = 26.0
 
 [connection signal="entity_died" from="Health" to="." method="_on_enemy_died"]
 [connection signal="entity_took_damage" from="Health" to="." method="_on_health_entity_took_damage"]

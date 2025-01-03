@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bspv8nrv6wx6t"]
+[gd_scene load_steps=9 format=3 uid="uid://bspv8nrv6wx6t"]
 
 [ext_resource type="Texture2D" uid="uid://dmusj50ea7j3h" path="res://assets/enemspawn.png" id="1_ets5f"]
 [ext_resource type="Script" path="res://entities/enemies/enemy_spawn.gd" id="1_ivc27"]
 [ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_x5sjt"]
+[ext_resource type="PackedScene" uid="uid://1y34glb3vi8q" path="res://ui/health_bar.tscn" id="4_kicgu"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cl6sf"]
 light_mode = 2
@@ -10,6 +11,9 @@ light_mode = 2
 [sub_resource type="CircleShape2D" id="CircleShape2D_hbpvb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n0srt"]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h0r7o"]
 light_mode = 2
 
 [node name="Enemy Spawn" type="Area2D"]
@@ -27,3 +31,10 @@ scale = Vector2(0.0716181, 0.071618)
 texture = ExtResource("1_ets5f")
 
 [node name="Health" parent="." instance=ExtResource("3_x5sjt")]
+
+[node name="HealthBar" parent="." instance=ExtResource("4_kicgu")]
+material = SubResource("CanvasItemMaterial_h0r7o")
+offset_left = -61.0
+offset_top = 34.0
+offset_right = 62.0
+offset_bottom = 40.0
