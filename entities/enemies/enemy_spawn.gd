@@ -1,6 +1,7 @@
 extends Area2D
 
 @export var enemy_scene: PackedScene
+@onready var health = $Health
 @export_range(15.0, 25.0, 0.1) var spawn_interval_min: float = 15.0
 @export_range(20.0, 30.0, 0.1) var spawn_interval_max: float = 20.0
 
@@ -8,6 +9,8 @@ var active_timer: Timer = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	health.max_health = 10000.0
+	health.current_health = health.max_health
 	_start_spawning()
 	pass # Replace with function body.
 

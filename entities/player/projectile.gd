@@ -55,6 +55,7 @@ func update_line():
 func handle_hit(entity):
 	if !is_instance_valid(entity):
 		return
+
 	line.add_point(entity.position)
 	if entity.is_in_group("enemies"):
 		hit_enemy(entity)
@@ -78,8 +79,7 @@ func hit_pylon(pylon):
 	else:
 		damage = damage / 2
 		line.default_color.a = line.default_color.a - 0.1
-	
-	print(damage)
+
 	if line.default_color.a <= 0:
 		remove_projectile()
 		

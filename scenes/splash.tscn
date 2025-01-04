@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7o5tlcfy4okg"]
+[gd_scene load_steps=6 format=3 uid="uid://c7o5tlcfy4okg"]
 
 [ext_resource type="Script" path="res://scenes/splash.gd" id="1_guoag"]
+[ext_resource type="Texture2D" uid="uid://drwuajnjid5uj" path="res://assets/splash.webp" id="2_1v23y"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntu7m"]
-bg_color = Color(0.12705, 0.179593, 0.193678, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5w3da"]
+texture = ExtResource("2_1v23y")
+modulate_color = Color(0.125911, 0.125911, 0.125911, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_pqljt"]
 
@@ -27,13 +29,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ntu7m")
+theme_override_styles/panel = SubResource("StyleBoxTexture_5w3da")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 541.0
+offset_bottom = -333.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Vision Tower"
@@ -49,9 +53,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -116.0
-offset_top = 68.0
+offset_top = 210.0
 offset_right = 116.0
-offset_bottom = 143.0
+offset_bottom = 285.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Start Game"

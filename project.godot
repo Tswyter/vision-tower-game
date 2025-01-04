@@ -33,6 +33,7 @@ player=""
 enemies=""
 projectiles=""
 pylons=""
+spawns=""
 
 [input_devices]
 

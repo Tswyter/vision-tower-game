@@ -9,6 +9,7 @@
 light_mode = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hbpvb"]
+radius = 11.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n0srt"]
 light_mode = 2
@@ -16,13 +17,15 @@ light_mode = 2
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h0r7o"]
 light_mode = 2
 
-[node name="Enemy Spawn" type="Area2D"]
+[node name="Enemy Spawn" type="Area2D" groups=["enemies", "spawns"]]
 light_mask = 2
 visibility_layer = 2
 material = SubResource("CanvasItemMaterial_cl6sf")
+collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_ivc27")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["enemies", "spawns"]]
 shape = SubResource("CircleShape2D_hbpvb")
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["enemies"]]
