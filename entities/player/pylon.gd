@@ -2,7 +2,8 @@ extends Area2D
 
 var is_alive = true
 var is_placed = false
-@onready var animated_sprite = $AnimatedSprite2D
+var can_be_hit = false
+@onready var animated_sprite = $AnimatedPylon
 @onready var load_in_sound = $"Load In Sound"
 
 # Called when the node enters the scene tree for the first time.
@@ -14,6 +15,7 @@ func _ready():
 	
 func _process(_delta):
 	if !is_placed:
+		animated_sprite.offset.y = 0
 		animated_sprite.play("idle-drag")
 	
 func warp_in_pylon():
@@ -24,3 +26,4 @@ func warp_in_pylon():
 func _on_animation_finished():
 	animated_sprite.offset.y = 0
 	animated_sprite.play("idle")
+	can_be_hit = true

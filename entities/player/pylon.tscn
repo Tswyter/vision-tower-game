@@ -207,25 +207,25 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wvdau")
 }, {
-"duration": 1.2,
+"duration": 1.1,
 "texture": SubResource("AtlasTexture_yhfbl")
 }, {
 "duration": 1.2,
 "texture": SubResource("AtlasTexture_t172x")
 }, {
-"duration": 1.6,
+"duration": 1.4,
 "texture": SubResource("AtlasTexture_5poqg")
 }, {
-"duration": 1.8,
+"duration": 1.6,
 "texture": SubResource("AtlasTexture_xtgqw")
 }, {
-"duration": 1.6,
+"duration": 1.8,
 "texture": SubResource("AtlasTexture_5k2c2")
 }, {
-"duration": 1.4,
+"duration": 1.8,
 "texture": SubResource("AtlasTexture_evv2n")
 }, {
-"duration": 1.4,
+"duration": 1.3,
 "texture": SubResource("AtlasTexture_utcxu")
 }, {
 "duration": 2.0,
@@ -234,7 +234,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8m6sf")
 }, {
-"duration": 1.0,
+"duration": 0.01,
 "texture": SubResource("AtlasTexture_8o5ds")
 }],
 "loop": false,
@@ -245,6 +245,7 @@ animations = [{
 [node name="Pylon" type="Area2D" groups=["pylons"]]
 light_mask = 2
 visibility_layer = 2
+y_sort_enabled = true
 material = SubResource("CanvasItemMaterial_7h3y5")
 collision_layer = 8
 collision_mask = 14
@@ -255,7 +256,6 @@ metadata/_edit_horizontal_guides_ = [24.0, -21.0]
 shape = SubResource("CircleShape2D_tlc6s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 scale = Vector2(1.36, 1.36)
 texture = ExtResource("2_ma30a")
 
@@ -272,12 +272,13 @@ blend_mode = 2
 range_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_fyabn")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedPylon" type="AnimatedSprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_imfa7")
 scale = Vector2(2.16667, 2.16667)
 sprite_frames = SubResource("SpriteFrames_dhexx")
-animation = &"idle-drag"
+animation = &"warp-in"
 autoplay = "idle"
+offset = Vector2(0, -37.135)
 
 [node name="Health" parent="." instance=ExtResource("4_ebqf6")]
 

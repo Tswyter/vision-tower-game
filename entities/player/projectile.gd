@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var line_container = get_parent().get_node("LineContainer")
-@onready var playerPosition = to_local(get_parent().position)
+var sprite_segments = []
 
 var line: Line2D
 
@@ -22,11 +22,9 @@ func _ready():
 	z_index = 5
 	line = Line2D.new()
 	line.clear_points()
-	line.width = 5.0
-	line.default_color = Color(0.9, 1, 1, 1)
 	line.show()
 	line.z_index = 5
-	line.add_point(playerPosition)
+	line.add_point(line_container.position)
 	line_container.add_child(line)
 	populate_chain_targets()
 

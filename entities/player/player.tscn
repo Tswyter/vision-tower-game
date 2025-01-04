@@ -93,11 +93,10 @@ collision_mask = 10
 script = ExtResource("1_pq503")
 
 [node name="LineContainer" type="Node2D" parent="."]
-
-[node name="Line2D" type="Line2D" parent="LineContainer"]
-points = PackedVector2Array(0, 0)
+position = Vector2(0, -0.035)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 87)
 shape = SubResource("CircleShape2D_ugxjs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -113,14 +112,16 @@ visible = false
 shape = SubResource("CircleShape2D_8epib")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, 59)
 scale = Vector2(9.0625, 9.0625)
 range_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_o8er8")
 
 [node name="Health" parent="." instance=ExtResource("3_38278")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -17)
+[node name="AnimatedTower" type="AnimatedSprite2D" parent="."]
+position = Vector2(-7, 42)
 scale = Vector2(4.4, 4.4)
 sprite_frames = SubResource("SpriteFrames_qwqch")
 autoplay = "default"
@@ -128,18 +129,16 @@ frame_progress = 0.124912
 
 [node name="HealthBar" parent="." instance=ExtResource("4_2coam")]
 offset_left = -60.0
-offset_top = 53.0
+offset_top = 148.0
 offset_right = 63.0
-offset_bottom = 58.0
+offset_bottom = 153.0
 
 [node name="HealthBarContainer" type="Panel" parent="."]
 offset_left = -63.0
-offset_top = 49.0
+offset_top = 144.0
 offset_right = 65.0
-offset_bottom = 61.0
+offset_bottom = 156.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jbr8x")
 
-[connection signal="area_entered" from="AttackRange" to="." method="_on_attack_range_area_entered"]
-[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="entity_died" from="Health" to="." method="_on_died"]
 [connection signal="entity_took_damage" from="Health" to="." method="_on_health_entity_took_damage"]

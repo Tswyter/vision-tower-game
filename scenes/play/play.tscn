@@ -44,7 +44,7 @@ position = Vector2(-657, 796)
 enemy_scene = ExtResource("6_7nslj")
 
 [node name="Player" parent="PlayArea" instance=ExtResource("3_8bxsa")]
-position = Vector2(386, 638)
+position = Vector2(386, 601)
 projectile_scene = ExtResource("3_bopvb")
 
 [node name="Play UI" parent="." instance=ExtResource("1_jhewb")]

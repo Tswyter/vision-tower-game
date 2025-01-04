@@ -10,6 +10,7 @@ var original_modulate: Color
 const SPEED = 0.15
 
 var is_alive = true
+var can_be_hit = false
 
 func _ready():
 	z_index = 1
@@ -18,6 +19,7 @@ func _ready():
 	death_sound.set_pitch_scale(randf_range(0, 4))
 	health.max_health = 10
 	health.current_health = health.max_health
+	can_be_hit = true
 
 func _physics_process(delta):
 	if get_tree().get_nodes_in_group("player").size() > 0:

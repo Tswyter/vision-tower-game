@@ -74,8 +74,8 @@ func place_pylon_on_map(drag_position: Vector2):
 	if play_node:
 		var local_position = play_node.to_local(drag_position)
 		dragged_pylon.position = local_position
+		await dragged_pylon.warp_in_pylon()
 		dragged_pylon.is_placed = true
-		dragged_pylon.warp_in_pylon()
 		dragged_pylon = null
 		emit_signal("pylon_placed")
 

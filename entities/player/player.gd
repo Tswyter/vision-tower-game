@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var health = get_node("Health")
-@onready var sprite = $AnimatedSprite2D
+@onready var sprite = $AnimatedTower
 @onready var attack_range = $AttackRange
 
 @export var projectile_scene: PackedScene
@@ -14,6 +14,8 @@ func _ready():
 	z_index = 10
 
 func _process(_delta):
+	for body in $AttackRange.get_overlapping_areas() + $AttackRange.get_overlapping_bodies():
+		detect_targets(body)
 	reprioritize_targets()
 	if enemy_targets.size() > 0:
 		for enemy in enemy_targets:
@@ -39,7 +41,8 @@ func shoot_projectile(target):
 	
 func detect_targets(entity):
 	if entity.is_in_group("enemies") or entity.is_in_group("pylons"):
-		enemy_targets.append(entity)
+		if entity.can_be_hit:
+			enemy_targets.append(entity)
 
 func reprioritize_targets():
 	enemy_targets.filter(remove_dead_targets)
@@ -63,9 +66,3 @@ func _on_health_entity_took_damage():
 	sprite.self_modulate = Color(255,0,0)
 	await get_tree().create_timer(0.25).timeout
 	sprite.self_modulate = Color(1,1,1)
-
-func _on_attack_range_body_entered(body):
-	detect_targets(body)
-
-func _on_attack_range_area_entered(area):
-	detect_targets(area)
