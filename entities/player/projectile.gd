@@ -69,12 +69,20 @@ func handle_hit(entity):
 		remove_projectile()
 
 func hit_pylon(pylon):
-	damage = damage + 10
+	damage = damage * 1.1 if current_chain_index > 0 else damage * 2
 	chain_radius.transform = chain_radius.transform * 1.01
-	if (line.default_color.r != 0):
+	if line.default_color.r > 0.1:
 		line.default_color.r = line.default_color.r - 0.1
-	else:
+	elif line.default_color.g > 0.1:
 		line.default_color.g = line.default_color.g - 0.1
+	else:
+		damage = damage / 2
+		line.default_color.a = line.default_color.a - 0.1
+	
+	print(damage)
+	if line.default_color.a <= 0:
+		remove_projectile()
+		
 	if pylon in chain_targets:
 		chain_targets.erase(pylon)
 		previously_hit.append(pylon)

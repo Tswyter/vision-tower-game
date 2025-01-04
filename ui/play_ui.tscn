@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b72lnk6e8c22k"]
+[gd_scene load_steps=6 format=3 uid="uid://b72lnk6e8c22k"]
 
 [ext_resource type="Script" path="res://ui/play_ui.gd" id="1_yybxt"]
 [ext_resource type="PackedScene" uid="uid://c4r83pue70jnb" path="res://entities/player/pylon.tscn" id="2_4qi65"]
@@ -17,12 +17,6 @@ Button/fonts/font = SubResource("SystemFont_ghnq5")
 Button/styles/hover = ExtResource("3_rf40s")
 Button/styles/normal = ExtResource("3_rf40s")
 
-[sub_resource type="Gradient" id="Gradient_nhsid"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1a5ny"]
-gradient = SubResource("Gradient_nhsid")
-
 [node name="Play UI" type="Control"]
 light_mask = 0
 layout_mode = 3
@@ -37,18 +31,12 @@ pylon_scene = ExtResource("2_4qi65")
 [node name="Button" type="Button" parent="."]
 z_index = 100
 layout_mode = 0
-offset_left = 19.0
-offset_top = 1192.0
-offset_right = 194.0
-offset_bottom = 1260.0
+offset_left = 42.0
+offset_top = 1154.0
+offset_right = 262.0
+offset_bottom = 1250.0
 theme = SubResource("Theme_ldoti")
 text = "Place Pylon"
-
-[node name="PointLight2D" type="PointLight2D" parent="Button"]
-visible = false
-position = Vector2(87.5, 34.5)
-scale = Vector2(2.79688, 1.14062)
-texture = SubResource("GradientTexture2D_1a5ny")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

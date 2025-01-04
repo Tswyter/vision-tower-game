@@ -7,30 +7,43 @@
 [ext_resource type="PackedScene" uid="uid://bspv8nrv6wx6t" path="res://entities/enemies/enemy_spawn.tscn" id="4_we8rp"]
 [ext_resource type="PackedScene" uid="uid://86nd7ggkmx6y" path="res://entities/enemies/enemy.tscn" id="6_7nslj"]
 
-[node name="Play" type="Node2D"]
+[node name="Play" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_vertical_guides_ = [386.0]
 metadata/_edit_horizontal_guides_ = [639.0]
 
-[node name="Map" parent="." instance=ExtResource("2_v2tnu")]
+[node name="PlayArea" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("3_8bxsa")]
-position = Vector2(386, 638)
-projectile_scene = ExtResource("3_bopvb")
+[node name="Map" parent="PlayArea" instance=ExtResource("2_v2tnu")]
 
-[node name="Enemy Spawn" parent="." instance=ExtResource("4_we8rp")]
+[node name="Enemy Spawn" parent="PlayArea" instance=ExtResource("4_we8rp")]
 position = Vector2(-60, -42)
 enemy_scene = ExtResource("6_7nslj")
 
-[node name="Enemy Spawn2" parent="." instance=ExtResource("4_we8rp")]
+[node name="Enemy Spawn2" parent="PlayArea" instance=ExtResource("4_we8rp")]
 position = Vector2(1155, 467)
 enemy_scene = ExtResource("6_7nslj")
 
-[node name="Enemy Spawn3" parent="." instance=ExtResource("4_we8rp")]
+[node name="Enemy Spawn3" parent="PlayArea" instance=ExtResource("4_we8rp")]
 position = Vector2(555, 1015)
 enemy_scene = ExtResource("6_7nslj")
 
-[node name="Enemy Spawn5" parent="." instance=ExtResource("4_we8rp")]
+[node name="Enemy Spawn5" parent="PlayArea" instance=ExtResource("4_we8rp")]
 position = Vector2(-657, 796)
 enemy_scene = ExtResource("6_7nslj")
 
+[node name="Player" parent="PlayArea" instance=ExtResource("3_8bxsa")]
+position = Vector2(386, 638)
+projectile_scene = ExtResource("3_bopvb")
+
 [node name="Play UI" parent="." instance=ExtResource("1_jhewb")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2

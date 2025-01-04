@@ -1,10 +1,11 @@
 extends Control
 
 @export var pylon_scene : PackedScene
-@onready var play_node = get_parent()
+@onready var play_node = get_parent().get_node("PlayArea")
 @onready var rng = RandomNumberGenerator.new()
 @onready var button = $Button
-@onready var player = get_parent().get_node("Player")
+var button_rect
+@onready var player = get_parent().get_node("PlayArea").get_node("Player")
 @onready var playerAttackRange = player.get_node("AttackRange")
 
 var is_dragging = false
@@ -12,11 +13,14 @@ var dragged_pylon = null
 
 signal pylon_placed
 
+func _ready():
+	button_rect = button.get_global_rect()
+
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			if not is_dragging:
-				if button.get_global_rect().has_point(event.position):
+				if button_rect.has_point(event.position):
 					start_drag(event.position)
 		else:
 			if is_dragging:
@@ -35,7 +39,7 @@ func start_drag(drag_position: Vector2):
 	is_dragging = true
 	dragged_pylon = create_dragged_pylon()
 	dragged_pylon.global_position = Vector2(-10000, -10000)
-	if !button.get_global_rect().has_point(drag_position):
+	if !button_rect.has_point(drag_position):
 		add_child(dragged_pylon)
 		dragged_pylon.global_position = drag_position
 
@@ -44,7 +48,7 @@ func start_drag(drag_position: Vector2):
 # - checks for the existence of the pylon and wether or not the player is still on the button
 # - otherwise sets the position of the pylon while the user is dragging
 func update_drag(drag_position: Vector2):
-	if dragged_pylon and !button.get_global_rect().has_point(drag_position):
+	if dragged_pylon and !button_rect.has_point(drag_position):
 		dragged_pylon.global_position = drag_position
 
 ## end_drag
@@ -54,7 +58,7 @@ func update_drag(drag_position: Vector2):
 # - if it is, then removes the pylon from the scene entirely
 func end_drag(drag_position: Vector2):
 	if dragged_pylon:
-		if !button.get_global_rect().has_point(drag_position):
+		if !button_rect.has_point(drag_position):
 			place_pylon_on_map(drag_position)
 		else:
 			reject_placement()
