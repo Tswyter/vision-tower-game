@@ -37,10 +37,10 @@ pylon_scene = ExtResource("2_4qi65")
 [node name="Button" type="Button" parent="."]
 z_index = 100
 layout_mode = 0
-offset_left = 50.0
-offset_top = 48.0
-offset_right = 225.0
-offset_bottom = 116.0
+offset_left = 19.0
+offset_top = 1192.0
+offset_right = 194.0
+offset_bottom = 1260.0
 theme = SubResource("Theme_ldoti")
 text = "Place Pylon"
 

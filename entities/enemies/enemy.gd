@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 @onready var health = get_node("Health")
 @onready var sprite = $AnimatedSprite2D
+@onready var death_sound = $DeathSound
+@onready var jump_sound = $JumpSound
+var play_jump_sound = false
 var original_modulate: Color
 
 const SPEED = 0.15
@@ -11,6 +14,9 @@ var is_alive = true
 func _ready():
 	z_index = 1
 	original_modulate = sprite.modulate
+	jump_sound.set_pitch_scale(randf_range(0, 2))
+	jump_sound.set_volume_db(randf_range(-10.0, -10.0))
+	death_sound.set_pitch_scale(randf_range(0, 4))
 
 func _physics_process(delta):
 	if get_tree().get_nodes_in_group("player").size() > 0:
@@ -30,9 +36,14 @@ func _physics_process(delta):
 					health.take_damage(100)
 
 func _on_enemy_died():
-	is_alive = false
-	sprite.self_modulate = Color(255,0,0)
-	queue_free()
+	if get_tree():
+		is_alive = false
+		sprite.self_modulate = Color(255,0,0)
+		jump_sound.stream_paused = true
+		death_sound.play()
+		await get_tree().create_timer(0.66).timeout
+		death_sound.stream_paused = true
+		queue_free()
 	# show dead animation
 	# stop moving
 
