@@ -25,10 +25,10 @@ collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_ivc27")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["enemies", "spawns"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hbpvb")
 
-[node name="Sprite2D" type="Sprite2D" parent="." groups=["enemies"]]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_n0srt")
 scale = Vector2(0.0716181, 0.071618)
 texture = ExtResource("1_ets5f")

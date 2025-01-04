@@ -1,6 +1,5 @@
 [gd_scene load_steps=18 format=3 uid="uid://86nd7ggkmx6y"]
 
-[ext_resource type="Texture2D" uid="uid://b55x4qbpq0a0j" path="res://assets/enemy.png" id="1_crgd8"]
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_rcuwa"]
 [ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_kxxl4"]
 [ext_resource type="Texture2D" uid="uid://ceeto3hwvy0cx" path="res://assets/enemy/slime_green.png" id="4_ow5kb"]
@@ -13,6 +12,9 @@ radius = 17.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rn46j"]
 light_mode = 2
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fbhfk"]
+load_path = "res://.godot/imported/enemy.png-63f114c7bb3f2105c232c34f647cbc2d.ctex"
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kpokq"]
 light_mode = 2
@@ -77,11 +79,11 @@ light_mask = 2
 visibility_layer = 2
 material = SubResource("CanvasItemMaterial_rn46j")
 scale = Vector2(0.0344828, 0.0344827)
-texture = ExtResource("1_crgd8")
+texture = SubResource("CompressedTexture2D_fbhfk")
 
 [node name="Health" parent="." instance=ExtResource("3_kxxl4")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["enemies"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
 material = SubResource("CanvasItemMaterial_kpokq")
