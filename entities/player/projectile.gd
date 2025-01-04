@@ -5,7 +5,7 @@ extends Area2D
 
 var line: Line2D
 
-var speed = 200
+var speed = 400
 var damage = 33.4
 var target = null
 var chain_limit = 2
@@ -70,8 +70,9 @@ func handle_hit(entity):
 		remove_projectile()
 
 func hit_pylon(pylon):
+	var pylon_chain_radius = pylon.get_node("ChainRadius")
 	damage = damage * 1.1 if current_chain_index > 0 else damage * 2
-	chain_radius.transform = chain_radius.transform * 1.01
+	chain_radius.transform = pylon_chain_radius.transform
 	if line.default_color.r > 0.1:
 		line.default_color.r = line.default_color.r - 0.1
 	elif line.default_color.g > 0.1:

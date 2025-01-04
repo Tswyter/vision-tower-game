@@ -6,10 +6,8 @@
 size = Vector2(10, 4)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3xelm"]
-load_path = "res://.godot/imported/laserRed01.png-dc643a2ae7584e7f1ac7a61eb9ce129b.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_trx5y"]
-load_path = "res://.godot/imported/projectile-animated.png-5cfedbda6c6b252f6313f7d81b78064f.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2fa4"]
 atlas = SubResource("CompressedTexture2D_trx5y")
@@ -82,7 +80,6 @@ collision_mask = 11
 shape = SubResource("CircleShape2D_ro4vl")
 
 [node name="chain radius visualization" type="Panel" parent="ChainRadius"]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

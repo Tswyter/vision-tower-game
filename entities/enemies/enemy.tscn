@@ -1,61 +1,60 @@
 [gd_scene load_steps=18 format=3 uid="uid://86nd7ggkmx6y"]
 
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_rcuwa"]
+[ext_resource type="Texture2D" uid="uid://bphy2mk6q0av" path="res://assets/enemy/slime_test.png" id="3_70j18"]
 [ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_kxxl4"]
-[ext_resource type="Texture2D" uid="uid://ceeto3hwvy0cx" path="res://assets/enemy/slime_green.png" id="4_ow5kb"]
 [ext_resource type="PackedScene" uid="uid://1y34glb3vi8q" path="res://ui/health_bar.tscn" id="5_k2rcn"]
 [ext_resource type="AudioStream" uid="uid://b75sspfsal852" path="res://entities/enemies/sounds/slime-splat-1-219248.mp3" id="6_jtxb6"]
 [ext_resource type="AudioStream" uid="uid://cxkv8uwxcukvp" path="res://entities/enemies/sounds/slimejump-6913.mp3" id="7_k4dya"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bl2eq"]
-radius = 17.0
+radius = 12.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rn46j"]
 light_mode = 2
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fbhfk"]
-load_path = "res://.godot/imported/enemy.png-63f114c7bb3f2105c232c34f647cbc2d.ctex"
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kpokq"]
 light_mode = 2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s33sv"]
-atlas = ExtResource("4_ow5kb")
-region = Rect2(0, 0, 23, 25)
+[sub_resource type="AtlasTexture" id="AtlasTexture_grlf5"]
+atlas = ExtResource("3_70j18")
+region = Rect2(0, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ik7ph"]
-atlas = ExtResource("4_ow5kb")
-region = Rect2(23, 0, 23, 25)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mysnr"]
+atlas = ExtResource("3_70j18")
+region = Rect2(20, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h6iol"]
-atlas = ExtResource("4_ow5kb")
-region = Rect2(46, 0, 23, 25)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gvxy"]
+atlas = ExtResource("3_70j18")
+region = Rect2(40, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d63s7"]
-atlas = ExtResource("4_ow5kb")
-region = Rect2(69, 0, 23, 25)
+[sub_resource type="AtlasTexture" id="AtlasTexture_67hhi"]
+atlas = ExtResource("3_70j18")
+region = Rect2(60, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_021gc"]
-atlas = ExtResource("4_ow5kb")
-region = Rect2(92, 0, 23, 25)
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5wpb"]
+atlas = ExtResource("3_70j18")
+region = Rect2(80, 0, 20, 20)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bq0x5"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s33sv")
+"texture": SubResource("AtlasTexture_grlf5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ik7ph")
+"texture": SubResource("AtlasTexture_mysnr")
+}, {
+"duration": 1.3,
+"texture": SubResource("AtlasTexture_2gvxy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h6iol")
+"texture": SubResource("AtlasTexture_67hhi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d63s7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_021gc")
+"texture": SubResource("AtlasTexture_j5wpb")
 }],
 "loop": true,
 "name": &"default",
@@ -87,10 +86,10 @@ texture = SubResource("CompressedTexture2D_fbhfk")
 light_mask = 2
 visibility_layer = 2
 material = SubResource("CanvasItemMaterial_kpokq")
-scale = Vector2(3.30435, 3.30435)
+scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_bq0x5")
 autoplay = "default"
-frame_progress = 0.219194
+frame_progress = 0.45076
 
 [node name="HealthBar" parent="." instance=ExtResource("5_k2rcn")]
 visible = false
@@ -106,9 +105,8 @@ stream = ExtResource("6_jtxb6")
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, 2)
 stream = ExtResource("7_k4dya")
-volume_db = -0.655
+volume_db = 1.0
 pitch_scale = 0.55
-autoplay = true
 
 [connection signal="entity_died" from="Health" to="." method="_on_enemy_died"]
 [connection signal="entity_took_damage" from="Health" to="." method="_on_health_entity_took_damage"]

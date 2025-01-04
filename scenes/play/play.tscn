@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://did7xn167kni5"]
+[gd_scene load_steps=8 format=3 uid="uid://did7xn167kni5"]
 
 [ext_resource type="PackedScene" uid="uid://b72lnk6e8c22k" path="res://ui/play_ui.tscn" id="1_jhewb"]
 [ext_resource type="PackedScene" uid="uid://c75qa1n3dm1lo" path="res://scenes/play/map.tscn" id="2_v2tnu"]
@@ -6,6 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://dgicxq7ss2cqe" path="res://entities/player/projectile.tscn" id="3_bopvb"]
 [ext_resource type="PackedScene" uid="uid://bspv8nrv6wx6t" path="res://entities/enemies/enemy_spawn.tscn" id="4_we8rp"]
 [ext_resource type="PackedScene" uid="uid://86nd7ggkmx6y" path="res://entities/enemies/enemy.tscn" id="6_7nslj"]
+
+[sub_resource type="Environment" id="Environment_48soy"]
+background_mode = 2
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_blend_mode = 1
 
 [node name="Play" type="Control"]
 layout_mode = 3
@@ -43,7 +49,6 @@ projectile_scene = ExtResource("3_bopvb")
 
 [node name="Play UI" parent="." instance=ExtResource("1_jhewb")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_48soy")

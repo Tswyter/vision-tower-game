@@ -15,8 +15,9 @@ func _ready():
 	z_index = 1
 	original_modulate = sprite.modulate
 	jump_sound.set_pitch_scale(randf_range(0, 2))
-	jump_sound.set_volume_db(randf_range(-10.0, -10.0))
 	death_sound.set_pitch_scale(randf_range(0, 4))
+	health.max_health = 10
+	health.current_health = health.max_health
 
 func _physics_process(delta):
 	if get_tree().get_nodes_in_group("player").size() > 0:
