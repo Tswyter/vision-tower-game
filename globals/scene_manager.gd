@@ -1,5 +1,6 @@
 extends Node
 
+#------ VARIABLES ------#
 var current_scene: PackedScene = null
 
 func switch_scene(scene_path: String) -> void:

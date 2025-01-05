@@ -1,7 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://dgicxq7ss2cqe"]
+[gd_scene load_steps=12 format=3 uid="uid://dgicxq7ss2cqe"]
 
 [ext_resource type="Script" path="res://entities/player/projectile.gd" id="1_c3bge"]
-[ext_resource type="Texture2D" uid="uid://ds7cencmwstu2" path="res://assets/projectile/lightning_1.png" id="2_t0o7r"]
+[ext_resource type="SpriteFrames" uid="uid://d22lekpc757do" path="res://assets/projectile/lightning-spriteframes.tres" id="2_vk6y1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wuffk"]
 size = Vector2(10, 4)
@@ -48,105 +48,6 @@ corner_radius_top_left = 500
 corner_radius_top_right = 500
 corner_radius_bottom_right = 500
 corner_radius_bottom_left = 500
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7idrb"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(0, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1cv7s"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(55, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2jyy8"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(110, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mthae"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(165, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_400vk"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(220, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x3dv7"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(275, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2yf1u"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(330, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i53sc"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(385, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vq5n2"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(440, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mh3qj"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(495, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nv4e2"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(550, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_puyk1"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(605, 0, 55, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n5awp"]
-atlas = ExtResource("2_t0o7r")
-region = Rect2(660, 0, 55, 200)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_takxr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7idrb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1cv7s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2jyy8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mthae")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_400vk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x3dv7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2yf1u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i53sc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vq5n2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mh3qj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nv4e2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_puyk1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n5awp")
-}],
-"loop": true,
-"name": &"default",
-"speed": 6.0
-}]
 
 [node name="Projectile" type="Area2D" groups=["projectile", "projectiles"]]
 collision_layer = 4
@@ -199,8 +100,9 @@ texture_mode = 1
 [node name="LightningTimer" type="Timer" parent="."]
 
 [node name="AnimatedLightningSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_takxr")
-frame_progress = 0.45201
+visible = false
+sprite_frames = ExtResource("2_vk6y1")
+autoplay = "default"
 
 [connection signal="area_entered" from="." to="." method="_on_projectile_hit_area"]
 [connection signal="body_entered" from="." to="." method="_on_projectile_hit_body"]

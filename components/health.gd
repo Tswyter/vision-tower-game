@@ -1,11 +1,15 @@
 extends Node
 class_name Health
 
+#------ EXPORTS ------#
 @export var max_health = 100.0
+
+#------ VARIABLES ------#
 var health_bar : TextureProgressBar
 var health_bar_label : Label
 var current_health = max_health
 
+#------ SIGNALS ------#
 signal entity_died
 signal entity_took_damage
 signal entity_healed

@@ -1,22 +1,28 @@
 extends Area2D
 
+#------ ON READY ------#
 @onready var line_container = get_parent().get_node("LineContainer")
-var sprite_segments = []
+@onready var chain_radius = $ChainRadius
 
+#------ VARIABLES ------#
 var line: Line2D
-
-var speed = 400
+var speed = 700
 var damage = 33.4
 var target = null
 var chain_limit = 2
 var current_chain_index = 0
-@onready var chain_radius = $ChainRadius
 var original_chain_radius
 var chain_targets = []
 var previously_hit = []
-
 var rng = RandomNumberGenerator.new()
 
+## Projectile updates
+# instantly hits target
+# instantly hits chained targets 
+# full animaton plays with dissipation directly after (chains may need to be offset)
+# if pylon is hit, sustain active animation until no enemies are present
+
+#region Built-In Functions
 func _ready():
 	original_chain_radius = chain_radius.transform
 	z_index = 5
@@ -38,17 +44,29 @@ func _physics_process(delta):
 		move_toward_target(delta)
 		
 	update_line()
+#endregion
+
+#region signals
+func _on_projectile_hit_area(area):
+	handle_hit(area)
+
+func _on_projectile_hit_body(body):
+	handle_hit(body)
+
+func _on_chain_radius_body_entered(body):
+	populate_chain_targets()
+	
+func _on_chain_radius_area_entered(area):
+	populate_chain_targets()
+
+func _on_chain_radius_body_exited(body):
+	if body in chain_targets:
+		chain_targets.erase(body)
+#endregion
 
 func move_toward_target(delta):
 	var direction = (target.global_position - global_position).normalized()
-	position += direction * speed * delta
-	
-func update_line():
-	if current_chain_index > line.get_point_count() - 2:
-		line.add_point(position)
-	line.set_point_position(line.get_point_count() - 1, position)
-	if line.get_point_count() - 2 > chain_limit:
-		line.remove_point(0)
+	position = to_local(target.global_position)
 
 func handle_hit(entity):
 	if !is_instance_valid(entity):
@@ -81,7 +99,7 @@ func hit_pylon(pylon):
 
 	if line.default_color.a <= 0:
 		remove_projectile()
-		
+
 	if pylon in chain_targets:
 		chain_targets.erase(pylon)
 		previously_hit.append(pylon)
@@ -94,22 +112,13 @@ func hit_enemy(enemy):
 	if enemy in chain_targets:
 		chain_targets.erase(enemy)
 
-func _on_projectile_hit_area(area):
-	handle_hit(area)
+func update_line():
+	if current_chain_index > line.get_point_count() - 2:
+		line.add_point(position)
+	line.set_point_position(line.get_point_count() - 1, position)
+	#if line.get_point_count() - 2 > chain_limit:
+		#line.remove_point(0)
 
-func _on_projectile_hit_body(body):
-	handle_hit(body)
-
-func _on_chain_radius_body_entered(body):
-	populate_chain_targets()
-	
-func _on_chain_radius_area_entered(area):
-	populate_chain_targets()
-	
-func _on_chain_radius_body_exited(body):
-	if body in chain_targets:
-		chain_targets.erase(body)
-		
 func populate_chain_targets():
 	# When the projectile loads, we need to add any enemies in the radius into the array
 	# we may need to sort the array as soon as an enemy is hit
@@ -128,6 +137,7 @@ func insert_sorted_chain_target(target):
 func get_closest_target():
 	return chain_targets[0] if chain_targets.size() > 0 else null
 
+#region Utilities
 func compare_distance(a, b):
 	var distance_a = global_position.distance_to(a.global_position)
 	var distance_b = global_position.distance_to(b.global_position)
@@ -143,3 +153,4 @@ func compare_distance(a, b):
 func remove_projectile():
 	queue_free()
 	line.queue_free()
+#endregion

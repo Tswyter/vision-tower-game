@@ -1,18 +1,24 @@
 extends Control
 
-@export var pylon_scene : PackedScene
+#------ ON READY ------#
 @onready var play_node = get_parent().get_node("PlayArea")
 @onready var rng = RandomNumberGenerator.new()
 @onready var button = $Button
-var button_rect
 @onready var player = get_parent().get_node("PlayArea").get_node("Player")
 @onready var playerAttackRange = player.get_node("AttackRange")
 
+#------ EXPORTS ------#
+@export var pylon_scene : PackedScene
+
+#------ VARIABLES ------#
+var button_rect
 var is_dragging = false
 var dragged_pylon = null
 
+#------ SIGNALS ------#
 signal pylon_placed
 
+#region Built-In Functions
 func _ready():
 	button_rect = button.get_global_rect()
 
@@ -28,6 +34,7 @@ func _input(event):
 	elif event is InputEventScreenDrag:
 		if is_dragging and dragged_pylon:
 			update_drag(event.position)
+#endregion
 
 ## start_drag
 # drag_position @Vector2 - the position where dragging begins

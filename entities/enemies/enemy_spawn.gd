@@ -1,10 +1,14 @@
 extends Area2D
 
-@export var enemy_scene: PackedScene
+#------ ON READY ------#
 @onready var health = $Health
+
+#------ EXPORTS ------#
+@export var enemy_scene: PackedScene
 @export_range(15.0, 25.0, 0.1) var spawn_interval_min: float = 15.0
 @export_range(20.0, 30.0, 0.1) var spawn_interval_max: float = 20.0
 
+#------ VARIABLES ------#
 var active_timer: Timer = null
 
 # Called when the node enters the scene tree for the first time.
