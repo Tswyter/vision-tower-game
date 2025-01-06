@@ -32,6 +32,7 @@ func _physics_process(delta):
 			var direction = player.global_position
 			if direction:
 				velocity = (direction - global_position) * speed * delta
+				sprite.play("jump")
 
 			var collision = move_and_collide(velocity)
 			if collision:
@@ -41,15 +42,11 @@ func _physics_process(delta):
 					health.take_damage(100)
 #endregion
 
-func flash_effect():
-	await get_tree().create_timer(0.2).timeout
-	sprite.modulate = original_modulate
-
 #region signals
 func _on_enemy_died():
 	if get_tree():
 		is_alive = false
-		sprite.self_modulate = Color(255,0,0)
+		sprite.play("death")
 		jump_sound.stream_paused = true
 		death_sound.play()
 		await get_tree().create_timer(0.66).timeout
@@ -60,7 +57,8 @@ func _on_enemy_died():
 
 func _on_health_entity_took_damage():
 	if get_tree():
-		sprite.self_modulate = Color(255,0,0)
-		await get_tree().create_timer(0.25).timeout
-		sprite.self_modulate = Color(1,1,1)
+		sprite.play("hit")
+		#sprite.self_modulate = Color(255,0,0)
+		#await get_tree().create_timer(0.25).timeout
+		#sprite.self_modulate = Color(1,1,1)
 #endregion

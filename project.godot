@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*res://globals/scene_manager.gd"
 Utilties="*res://globals/utilties.gd"
+GraphManager="*res://globals/graph_manager.gd"
 
 [display]
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgicxq7ss2cqe"]
+[gd_scene load_steps=11 format=3 uid="uid://dgicxq7ss2cqe"]
 
 [ext_resource type="Script" path="res://entities/player/projectile.gd" id="1_c3bge"]
 [ext_resource type="SpriteFrames" uid="uid://d22lekpc757do" path="res://assets/projectile/lightning-spriteframes.tres" id="2_vk6y1"]
+[ext_resource type="PackedScene" uid="uid://cc5tf2holhvqp" path="res://components/ChainRadius.tscn" id="2_w0l5v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wuffk"]
 size = Vector2(10, 4)
@@ -39,20 +40,12 @@ animations = [{
 "speed": 1.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ro4vl"]
-radius = 89.0225
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_542q1"]
-bg_color = Color(0.6, 0.6, 0.6, 0.207843)
-corner_radius_top_left = 500
-corner_radius_top_right = 500
-corner_radius_bottom_right = 500
-corner_radius_bottom_left = 500
-
 [node name="Projectile" type="Area2D" groups=["projectile", "projectiles"]]
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_c3bge")
+
+[node name="ChainRadius" parent="." instance=ExtResource("2_w0l5v")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.11063e-06, 0)
@@ -72,27 +65,6 @@ autoplay = "default"
 frame = 2
 frame_progress = 0.57447
 
-[node name="ChainRadius" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 11
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ChainRadius"]
-shape = SubResource("CircleShape2D_ro4vl")
-
-[node name="chain radius visualization" type="Panel" parent="ChainRadius"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -91.0
-offset_top = -91.0
-offset_right = 91.0
-offset_bottom = 91.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_542q1")
-
 [node name="Line2D" type="Line2D" parent="."]
 position = Vector2(-1, 0)
 texture_mode = 1
@@ -108,5 +80,4 @@ autoplay = "default"
 [connection signal="body_entered" from="." to="." method="_on_projectile_hit_body"]
 [connection signal="area_entered" from="ChainRadius" to="." method="_on_chain_radius_area_entered"]
 [connection signal="body_entered" from="ChainRadius" to="." method="_on_chain_radius_body_entered"]
-[connection signal="body_exited" from="ChainRadius" to="." method="_on_chain_radius_body_exited"]
 [connection signal="timeout" from="LightningTimer" to="." method="_on_lightning_timer_timeout"]

@@ -83,6 +83,7 @@ func place_pylon_on_map(drag_position: Vector2):
 		dragged_pylon.position = local_position
 		await dragged_pylon.warp_in_pylon()
 		dragged_pylon.is_placed = true
+		GraphManager.add_node(dragged_pylon.get_node("NodeGraph"))
 		dragged_pylon = null
 		emit_signal("pylon_placed")
 

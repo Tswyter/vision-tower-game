@@ -1,19 +1,25 @@
 extends CharacterBody2D
 
 #------ ON READY ------#
-@onready var health = get_node("Health")
+@onready var health = $Health
 @onready var sprite = $AnimatedTower
 @onready var attack_range = $AttackRange
 
 #------ EXPORTS ------#
 @export var projectile_scene: PackedScene
-@export var fire_rate: float = 4.0
+@export var fire_rate: float = 2.0
 
 #------ VARIABLES ------#
-var enemy_targets = []
+var node_graph
+var enemy_targets: Array = []
+var pylons: Array = []
 var can_fire: bool = true
 
 #region Built-In Functions
+func _ready():
+	var graph = $NodeGraph.build_graph(self, pylons, enemy_targets)
+	print(graph)
+
 func _process(_delta):
 	detect_targets()
 	if enemy_targets.size() > 0:
@@ -41,11 +47,21 @@ func shoot_projectile(target):
 
 func detect_targets():
 	for entity in $AttackRange.get_overlapping_areas() + $AttackRange.get_overlapping_bodies():
-		if entity.is_in_group("enemies") or entity.is_in_group("pylons"):
-			if entity.can_be_hit:
-				enemy_targets.append(entity)
+		if (entity.is_in_group("enemies") or entity.is_in_group("pylons")) and entity.can_be_hit:
+			enemy_targets.append(entity)
+		if entity.is_in_group("pylons") and entity not in pylons:
+			pylons.append(entity)
+	if pylons.size() > 0:
+		for pylon in pylons:
+			var pylon_radius = pylon.get_node("ChainRadius")
+			for entity in pylon_radius.get_overlapping_areas() + pylon_radius.get_overlapping_bodies():
+				if entity.is_in_group("enemies"):
+					shoot_projectile(pylon)
 
 	reprioritize_targets()
+
+func listen_to_pylons():
+	pass
 
 func reprioritize_targets():
 	enemy_targets.filter(remove_dead_targets)

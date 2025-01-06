@@ -6,10 +6,11 @@ extends Area2D
 
 #------ VARIABLES ------#
 var line: Line2D
-var speed = 700
+var speed = 100
 var damage = 33.4
 var target = null
 var chain_limit = 2
+# What if the chain radius is actually in the thing the projectile hits instead? Then enemies can have a different radius than pylons and this can be a component
 var current_chain_index = 0
 var original_chain_radius
 var chain_targets = []
@@ -53,10 +54,10 @@ func _on_projectile_hit_area(area):
 func _on_projectile_hit_body(body):
 	handle_hit(body)
 
-func _on_chain_radius_body_entered(body):
+func _on_chain_radius_body_entered(_body):
 	populate_chain_targets()
 	
-func _on_chain_radius_area_entered(area):
+func _on_chain_radius_area_entered(_area):
 	populate_chain_targets()
 
 func _on_chain_radius_body_exited(body):
@@ -66,12 +67,14 @@ func _on_chain_radius_body_exited(body):
 
 func move_toward_target(delta):
 	var direction = (target.global_position - global_position).normalized()
-	position = to_local(target.global_position)
+	position += direction * speed * delta
 
 func handle_hit(entity):
-	if !is_instance_valid(entity):
+	if !is_instance_valid(entity) and !entity.get_node("ChainRadius"):
 		return
 
+	# update the chain radius to match whatever was just hit, allowing pylons to reveal enemies not previously seen if in radius
+	chain_radius.update_radius(entity.get_node("ChainRadius").get_node("CollisionShape2D").shape.radius)
 	line.add_point(entity.position)
 	if entity.is_in_group("enemies"):
 		hit_enemy(entity)
