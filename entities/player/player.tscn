@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d01i1kx3q26nt"]
+[gd_scene load_steps=22 format=3 uid="uid://d01i1kx3q26nt"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_pq503"]
 [ext_resource type="Texture2D" uid="uid://ufgxqecqsnmx" path="res://assets/tower/tower_sprite_sheet.png" id="2_a5j68"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_38278"]
 [ext_resource type="PackedScene" uid="uid://1y34glb3vi8q" path="res://ui/health_bar.tscn" id="4_2coam"]
 [ext_resource type="PackedScene" uid="uid://o4nnx1f1wo1e" path="res://components/node_graph.tscn" id="6_36xym"]
+[ext_resource type="PackedScene" uid="uid://cc5tf2holhvqp" path="res://components/ChainRadius.tscn" id="7_37ov8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ugxjs"]
 radius = 38.0526
@@ -142,6 +143,8 @@ offset_bottom = 156.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jbr8x")
 
 [node name="NodeGraph" parent="." instance=ExtResource("6_36xym")]
+
+[node name="ChainRadius" parent="." instance=ExtResource("7_37ov8")]
 
 [connection signal="entity_died" from="Health" to="." method="_on_died"]
 [connection signal="entity_took_damage" from="Health" to="." method="_on_health_entity_took_damage"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://c4r83pue70jnb"]
+[gd_scene load_steps=44 format=3 uid="uid://c4r83pue70jnb"]
 
 [ext_resource type="Script" path="res://entities/player/pylon.gd" id="1_hq1mt"]
 [ext_resource type="Texture2D" uid="uid://c8w2gmkx2yfin" path="res://assets/pylon/pylon_idle.png" id="3_sw7g0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b5h7ift1clhtb" path="res://assets/pylon/grey_pylon_idle.png" id="4_ubiux"]
 [ext_resource type="PackedScene" uid="uid://1y34glb3vi8q" path="res://ui/health_bar.tscn" id="5_fh1ly"]
 [ext_resource type="AudioStream" uid="uid://dosmdkg81nie4" path="res://assets/pylon/sounds/deep-strange-whoosh-183845.mp3" id="8_jcvk1"]
+[ext_resource type="PackedScene" uid="uid://o4nnx1f1wo1e" path="res://components/node_graph.tscn" id="8_txg4y"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7h3y5"]
 light_mode = 2
@@ -286,3 +287,5 @@ offset_bottom = 43.0
 
 [node name="Load In Sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_jcvk1")
+
+[node name="NodeGraph" parent="." instance=ExtResource("8_txg4y")]

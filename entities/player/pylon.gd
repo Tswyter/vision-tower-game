@@ -32,4 +32,5 @@ func _on_animation_finished():
 	animated_sprite.offset.y = 0
 	animated_sprite.play("idle")
 	can_be_hit = true
+	GraphManager.add_node(self)
 #endregion

@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://86nd7ggkmx6y"]
+[gd_scene load_steps=55 format=3 uid="uid://86nd7ggkmx6y"]
 
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_rcuwa"]
 [ext_resource type="Texture2D" uid="uid://bphy2mk6q0av" path="res://assets/enemy/slime_test.png" id="3_70j18"]
 [ext_resource type="Texture2D" uid="uid://dc7duh0v3884d" path="res://assets/enemy/slime_death.png" id="3_kladp"]
 [ext_resource type="PackedScene" uid="uid://c4a0flib60lsa" path="res://components/health.tscn" id="3_kxxl4"]
+[ext_resource type="Texture2D" uid="uid://ceeto3hwvy0cx" path="res://assets/enemy/slime_green.png" id="3_o4mmy"]
 [ext_resource type="Texture2D" uid="uid://db66sy63mkkeg" path="res://assets/enemy/slime_hit.png" id="4_j4n1d"]
 [ext_resource type="Texture2D" uid="uid://b2tt5lq4p6pqk" path="res://assets/enemy/slime_idle.png" id="5_j5wui"]
 [ext_resource type="PackedScene" uid="uid://1y34glb3vi8q" path="res://ui/health_bar.tscn" id="5_k2rcn"]
@@ -11,14 +12,12 @@
 [ext_resource type="AudioStream" uid="uid://cxkv8uwxcukvp" path="res://entities/enemies/sounds/slimejump-6913.mp3" id="7_k4dya"]
 [ext_resource type="PackedScene" uid="uid://cc5tf2holhvqp" path="res://components/ChainRadius.tscn" id="7_pmak1"]
 [ext_resource type="Texture2D" uid="uid://yybtus8utrnw" path="res://assets/enemy/slime_loosing_chunk.png" id="7_ven4v"]
+[ext_resource type="PackedScene" uid="uid://o4nnx1f1wo1e" path="res://components/node_graph.tscn" id="13_785rr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bl2eq"]
 radius = 12.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rn46j"]
-light_mode = 2
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fbhfk"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kpokq"]
 
@@ -235,6 +234,95 @@ animations = [{
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_drhup"]
 light_mode = 2
 
+[sub_resource type="Animation" id="Animation_12bjm"]
+resource_name = "idle"
+length = 0.533337
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_5qkfd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("jumpSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_hc0b8"]
+resource_name = "jump"
+length = 0.66667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("jumpSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.466667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u1lop"]
+_data = {
+"RESET": SubResource("Animation_5qkfd"),
+"idle": SubResource("Animation_12bjm"),
+"jump": SubResource("Animation_hc0b8")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o32s6"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bmovh"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lx3w8"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_adjf8"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jhidn"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_n58wf"]
+states/End/position = Vector2(533, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_o32s6")
+states/idle/position = Vector2(298, 100)
+states/jump/node = SubResource("AnimationNodeAnimation_bmovh")
+states/jump/position = Vector2(404, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_lx3w8"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_adjf8"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_jhidn")]
+
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 y_sort_enabled = true
 collision_layer = 2
@@ -244,26 +332,32 @@ script = ExtResource("1_rcuwa")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bl2eq")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
+[node name="idleSprite" type="Sprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
 material = SubResource("CanvasItemMaterial_rn46j")
-scale = Vector2(0.0344828, 0.0344827)
-texture = SubResource("CompressedTexture2D_fbhfk")
+scale = Vector2(2.50001, 2.5)
+texture = ExtResource("5_j5wui")
+hframes = 4
+
+[node name="jumpSprite" type="Sprite2D" parent="."]
+position = Vector2(7.62939e-06, -9)
+scale = Vector2(2.56, 2.56)
+texture = ExtResource("3_o4mmy")
+hframes = 5
+frame = 1
 
 [node name="Health" parent="." instance=ExtResource("3_kxxl4")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 light_mask = 2
 visibility_layer = 2
 material = SubResource("CanvasItemMaterial_kpokq")
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_bq0x5")
-animation = &"hit"
+animation = &"jump"
 autoplay = "idle"
-frame = 2
-frame_progress = 1.0
 
 [node name="HealthBar" parent="." instance=ExtResource("5_k2rcn")]
 visible = false
@@ -283,6 +377,18 @@ volume_db = 1.0
 pitch_scale = 0.55
 
 [node name="ChainRadius" parent="." instance=ExtResource("7_pmak1")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u1lop")
+}
+autoplay = "idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_n58wf")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="NodeGraph" parent="." instance=ExtResource("13_785rr")]
 
 [connection signal="entity_died" from="Health" to="." method="_on_enemy_died"]
 [connection signal="entity_took_damage" from="Health" to="." method="_on_health_entity_took_damage"]

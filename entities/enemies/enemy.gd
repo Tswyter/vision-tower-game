@@ -13,6 +13,13 @@ var speed = 0.15
 var is_alive = true
 var can_be_hit = false
 
+enum State {
+	IDLE,
+	JUMP,
+	DEATH,
+	HIT
+}
+
 #region Built-In Functions
 func _ready():
 	z_index = 1
@@ -22,6 +29,7 @@ func _ready():
 	health.max_health = 10
 	health.current_health = health.max_health
 	can_be_hit = true
+	GraphManager.add_node(self)
 
 func _physics_process(delta):
 	if get_tree().get_nodes_in_group("player").size() > 0:
@@ -52,13 +60,8 @@ func _on_enemy_died():
 		await get_tree().create_timer(0.66).timeout
 		death_sound.stream_paused = true
 		queue_free()
-	# show dead animation
-	# stop moving
 
 func _on_health_entity_took_damage():
 	if get_tree():
 		sprite.play("hit")
-		#sprite.self_modulate = Color(255,0,0)
-		#await get_tree().create_timer(0.25).timeout
-		#sprite.self_modulate = Color(1,1,1)
 #endregion

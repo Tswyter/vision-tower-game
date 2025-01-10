@@ -14,9 +14,6 @@ func connect_to(other_node: NodeGraph):
 
 func build_graph(tower, pylons: Array, enemies: Array) -> Node:
 	var nodes = [tower] + pylons + enemies
-	var nodeGraphs = nodes.map(func (node): return node.get_node("NodeGraph"))
-	print(nodeGraphs)
-
 	for i in range(nodes.size()):
 		for j in range(i + 1, nodes.size()):
 			var node_a = nodes[i]

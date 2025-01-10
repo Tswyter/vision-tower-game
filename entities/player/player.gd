@@ -17,11 +17,12 @@ var can_fire: bool = true
 
 #region Built-In Functions
 func _ready():
-	var graph = $NodeGraph.build_graph(self, pylons, enemy_targets)
-	print(graph)
+	GraphManager.add_node(self)
+	pass
 
 func _process(_delta):
 	detect_targets()
+	print(pylons, enemy_targets)
 	if enemy_targets.size() > 0:
 		for enemy in enemy_targets:
 			if can_fire:
